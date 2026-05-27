@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Share Market Learning with AI - Your ultimate guide to mastering the share market with the power of AI.">
     <title>Share Market Learning with AI</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=2.1">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,6 +25,7 @@
                     <li><a href="#home">Home</a></li>
                     <li><a href="#videos">Videos</a></li>
                     <li><a href="#learning">Learning Hub</a></li>
+                    <li><a href="#calculator">Calculator</a></li>
                     <li><a href="#products">Premium Products</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
@@ -84,6 +85,178 @@
             
             <div class="text-center mt-4">
                 <a href="https://www.youtube.com/@Share_Market_Learning_With_AI" target="_blank" class="btn btn-primary">Subscribe on YouTube</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Corporate Action Calculator Section -->
+    <section id="calculator" class="calculator-section">
+        <div class="container">
+            <h2 class="section-title">Corporate Action <span class="highlight">Calculator</span></h2>
+            <p class="section-subtitle">Calculate how Dividends, Bonus Issues, and Stock Splits affect your shares and portfolio value in real time.</p>
+
+            <div class="calc-dashboard">
+                <!-- Left Side: Inputs Card -->
+                <div class="calc-container-card">
+                    <!-- Tab Controls -->
+                    <div class="calc-tabs">
+                        <button class="calc-tab-btn active" data-calc-tab="dividend">💵 Dividend</button>
+                        <button class="calc-tab-btn" data-calc-tab="bonus">🎁 Bonus Shares</button>
+                        <button class="calc-tab-btn" data-calc-tab="split">✂️ Stock Split</button>
+                    </div>
+
+                    <!-- Panel 1: Dividend Calculator -->
+                    <div class="calc-panel active" id="calc-div-panel">
+                        <form id="div-form">
+                            <div class="calc-form-group">
+                                <label for="c-div-shares">Shares Owned (आपके शेयर्स)</label>
+                                <div class="calc-input-wrapper">
+                                    <input type="number" id="c-div-shares" class="calc-input" style="padding-left: 14px;" value="100" min="1">
+                                </div>
+                            </div>
+
+                            <div class="calc-form-group">
+                                <label for="c-div-price">Current Stock Price (शेयर प्राइस)</label>
+                                <div class="calc-input-wrapper">
+                                    <span class="calc-input-prefix">₹</span>
+                                    <input type="number" id="c-div-price" class="calc-input" value="500" min="0.1" step="0.05">
+                                </div>
+                            </div>
+
+                            <div class="calc-input-row">
+                                <div class="calc-form-group">
+                                    <label for="c-div-type">Dividend Declared As</label>
+                                    <select id="c-div-type" class="calc-select">
+                                        <option value="per-share">Dividend Per Share (₹)</option>
+                                        <option value="percentage">% of Face Value</option>
+                                    </select>
+                                </div>
+
+                                <div class="calc-form-group" id="c-div-value-group">
+                                    <label for="c-div-val" id="c-div-val-label">Dividend Per Share (₹)</label>
+                                    <div class="calc-input-wrapper">
+                                        <span class="calc-input-prefix" id="c-div-val-prefix">₹</span>
+                                        <input type="number" id="c-div-val" class="calc-input" value="10" min="0.01" step="0.05">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Conditionally Visible Face Value -->
+                            <div class="calc-form-group" id="c-div-fv-group" style="display: none;">
+                                <label for="c-div-fv">Share Face Value (फेस वैल्यू)</label>
+                                <div class="calc-input-wrapper">
+                                    <span class="calc-input-prefix">₹</span>
+                                    <input type="number" id="c-div-fv" class="calc-input" value="10" min="1">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Panel 2: Bonus Shares Calculator -->
+                    <div class="calc-panel" id="calc-bonus-panel">
+                        <form id="bonus-form">
+                            <div class="calc-form-group">
+                                <label for="c-bonus-shares">Shares Owned (आपके शेयर्स)</label>
+                                <div class="calc-input-wrapper">
+                                    <input type="number" id="c-bonus-shares" class="calc-input" style="padding-left: 14px;" value="100" min="1">
+                                </div>
+                            </div>
+
+                            <div class="calc-form-group">
+                                <label for="c-bonus-price">Current Stock Price (शेयर प्राइस)</label>
+                                <div class="calc-input-wrapper">
+                                    <span class="calc-input-prefix">₹</span>
+                                    <input type="number" id="c-bonus-price" class="calc-input" value="300" min="0.1" step="0.05">
+                                </div>
+                            </div>
+
+                            <div class="calc-form-group">
+                                <label>Bonus Ratio (बोनस रेशियो)</label>
+                                <div class="calc-ratio-inputs">
+                                    <input type="number" id="c-bonus-ratio-a" class="calc-input" value="1" min="1">
+                                    <span class="calc-ratio-divider">:</span>
+                                    <input type="number" id="c-bonus-ratio-b" class="calc-input" value="1" min="1">
+                                </div>
+                                <span style="font-size: 0.75rem; color: var(--light-text); display: block; margin-top: 6px; text-align: left;">
+                                    *Example: <strong>3:2</strong> means you get <strong>3 free bonus shares</strong> for every <strong>2 shares</strong> held.
+                                </span>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Panel 3: Stock Split Calculator -->
+                    <div class="calc-panel" id="calc-split-panel">
+                        <form id="split-form">
+                            <div class="calc-form-group">
+                                <label for="c-split-shares">Shares Owned (आपके शेयर्स)</label>
+                                <div class="calc-input-wrapper">
+                                    <input type="number" id="c-split-shares" class="calc-input" style="padding-left: 14px;" value="100" min="1">
+                                </div>
+                            </div>
+
+                            <div class="calc-form-group">
+                                <label for="c-split-price">Current Stock Price (शेयर प्राइस)</label>
+                                <div class="calc-input-wrapper">
+                                    <span class="calc-input-prefix">₹</span>
+                                    <input type="number" id="c-split-price" class="calc-input" value="1200" min="0.1" step="0.05">
+                                </div>
+                            </div>
+
+                            <div class="calc-input-row">
+                                <div class="calc-form-group">
+                                    <label for="c-split-old-fv">Old Face Value (पुरानी फेस वैल्यू)</label>
+                                    <select id="c-split-old-fv" class="calc-select">
+                                        <option value="10" selected>₹10</option>
+                                        <option value="5">₹5</option>
+                                        <option value="2">₹2</option>
+                                    </select>
+                                </div>
+
+                                <div class="calc-form-group">
+                                    <label for="c-split-new-fv">New Face Value (नई फेस वैल्यू)</label>
+                                    <select id="c-split-new-fv" class="calc-select">
+                                        <option value="5">₹5</option>
+                                        <option value="2">₹2</option>
+                                        <option value="1" selected>₹1</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Warning Panel -->
+                    <div class="calc-warning-card">
+                        <span>⚠️</span>
+                        <p>Corporate actions are decided by company boards. After the ex-date, the stock price adjusts in the market automatically. Portfolio values remain same at split/bonus adjustment.</p>
+                    </div>
+                </div>
+
+                <!-- Right Side: Results Card -->
+                <div class="calc-container-card">
+                    <div class="results-panel">
+                        <h2 style="font-size: 1.3rem; margin-bottom: 1.5rem; text-align: left; border-bottom: 2px solid var(--border-color); padding-bottom: 0.5rem; display: flex; align-items: center; gap: 8px;">📊 Calculation Results</h2>
+                        
+                        <!-- Metrics Grid -->
+                        <div class="calc-results-grid" id="c-results-metric-grid">
+                            <!-- Injected dynamically -->
+                        </div>
+
+                        <!-- Language Explanations -->
+                        <div class="explanation-container" style="margin-top: 1.5rem;">
+                            <!-- English -->
+                            <div class="lang-block english-block" style="text-align: left; padding: 1.25rem;">
+                                <div class="lang-header">🇬🇧 English Explanation</div>
+                                <p id="c-explanation-en" style="margin: 0; font-size: 0.88rem; line-height: 1.6;"></p>
+                            </div>
+
+                            <!-- Hinglish -->
+                            <div class="lang-block hinglish-block" style="text-align: left; padding: 1.25rem;">
+                                <div class="lang-header">🇮🇳 Hinglish Explanation</div>
+                                <p id="c-explanation-hi" style="margin: 0; font-size: 0.88rem; line-height: 1.6;"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -423,6 +596,8 @@
                 <ul>
                     <li><a href="#home">Home</a></li>
                     <li><a href="#videos">YouTube Videos</a></li>
+                    <li><a href="#learning">Learning Hub</a></li>
+                    <li><a href="#calculator">Calculator</a></li>
                     <li><a href="#products">Premium Channel</a></li>
                 </ul>
             </div>
@@ -454,6 +629,6 @@
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="script.js?v=2.1"></script>
 </body>
 </html>
