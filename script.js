@@ -607,7 +607,14 @@ function renderTradeLogsTable() {
         const exitReason = trade.Exit_Reason || trade['Exit Reason'] || '-';
         const plClass = netPL >= 0 ? 'style="color: #10B981; font-weight: 600;"' : 'style="color: #B91C1C; font-weight: 600;"';
         
-        const sideBadge = side === 'BUY' ? '<span class="badge-buy">BUY</span>' : '<span class="badge-sell">SELL</span>';
+        let sideBadge = '';
+        if (side === 'LONG' || side === 'BUY') {
+            sideBadge = '<span class="badge-buy">LONG</span>';
+        } else if (side === 'SHORT' || side === 'SELL') {
+            sideBadge = '<span class="badge-sell">SHORT</span>';
+        } else {
+            sideBadge = `<span class="badge-sell">${trade.Side || ''}</span>`;
+        }
         const resultBadge = result === 'WIN' ? '<span class="badge-win">WIN</span>' : '<span class="badge-loss">LOSS</span>';
 
         tbody.innerHTML += `
